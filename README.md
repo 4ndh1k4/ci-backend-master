@@ -1,6 +1,6 @@
 # ci-backend-master
 
-Ini adalah bantuan untuk membuat aplikasi berbasis web. 
+Ini adalah bantuan untuk membuat aplikasi berbasis web dengan framework codeigniter. 
 
 ## Aplikasi ini menggunakan : 
 * [Codeigniter](https://www.codeigniter.com/) - Framework versi 3.1.8
