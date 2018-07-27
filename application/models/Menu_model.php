@@ -17,7 +17,7 @@ class Menu_model extends CI_Model
 		
     // datatables
     function json() {
-        $this->datatables->select('id,parent_menu,nama_menu,controller_link,icon,slug,urut_menu,menu_users,is_active');
+        $this->datatables->select('id,parent_menu,nama_menu,controller_link,icon,slug,urut_menu,menu_grup_user,is_active');
         $this->datatables->from('menu');
         //add this line for join
         //$this->datatables->join('table2', 'menu.field = table2.field');
@@ -48,7 +48,7 @@ class Menu_model extends CI_Model
 		$this->db->or_like('icon', $q);
 		$this->db->or_like('slug', $q);
 		$this->db->or_like('urut_menu', $q);
-		$this->db->or_like('menu_users', $q);
+		$this->db->or_like('menu_grup_user', $q);
 		$this->db->or_like('is_active', $q);
 		$this->db->from($this->table);
         return $this->db->count_all_results();
@@ -64,7 +64,7 @@ class Menu_model extends CI_Model
 		$this->db->or_like('icon', $q);
 		$this->db->or_like('slug', $q);
 		$this->db->or_like('urut_menu', $q);
-		$this->db->or_like('menu_users', $q);
+		$this->db->or_like('menu_grup_user', $q);
 		$this->db->or_like('is_active', $q);
 		$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
