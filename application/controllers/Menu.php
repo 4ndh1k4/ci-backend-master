@@ -69,7 +69,7 @@ class Menu extends CI_Controller
 				$this->data['icon'] = $this->form_validation->set_value('icon',$row->icon);
 				$this->data['slug'] = $this->form_validation->set_value('slug',$row->slug);
 				$this->data['urut_menu'] = $this->form_validation->set_value('urut_menu',$row->urut_menu);
-				$this->data['menu_users'] = $this->form_validation->set_value('menu_users',$row->menu_users);
+				$this->data['menu_grup_user'] = $this->form_validation->set_value('menu_grup_user',$row->menu_grup_user);
 				$this->data['is_active'] = $this->form_validation->set_value('is_active',$row->is_active);
 	    
 				$this->data['title'] = 'menu';
@@ -98,11 +98,7 @@ class Menu extends CI_Controller
 		else
 		{
 			$this->data['user'] = $this->ion_auth->user()->row();			
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
-			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
+			
 			$this->data['get_parent'] = $this->Menu_model->get_all();
 			
 			$this->data['button'] = 'Tambah';
@@ -149,10 +145,10 @@ class Menu extends CI_Controller
 				'value'			=> $this->form_validation->set_value('urut_menu'),
 				'class'			=> 'form-control',
 			);
-		    $this->data['menu_users'] = array(
-				'name'			=> 'menu_users',
+		    $this->data['menu_grup_user'] = array(
+				'name'			=> 'menu_grup_user',
 				'type'			=> 'text',
-				'value'			=> $this->form_validation->set_value('menu_users'),
+				'value'			=> $this->form_validation->set_value('menu_grup_user'),
 				'class'			=> 'form-control select2',
 			);
 		    $this->data['is_active'] = array(
@@ -183,7 +179,7 @@ class Menu extends CI_Controller
 			'icon' 					=> $this->input->post('icon',TRUE),
 			'slug' 					=> $this->input->post('slug',TRUE),
 			'urut_menu' 			=> $this->input->post('urut_menu',TRUE),
-			'menu_users' 			=> $this->input->post('menu_users',TRUE),
+			'menu_grup_user' 			=> $this->input->post('menu_grup_user',TRUE),
 			'is_active' 			=> $this->input->post('is_active',TRUE),
 			);
 
@@ -209,11 +205,7 @@ class Menu extends CI_Controller
 		{
 			$this->data['user'] = $this->ion_auth->user()->row();
 			
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
-			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
+			
 			
 			$this->data['get_parent'] = $this->Menu_model->get_all();
 			
@@ -264,10 +256,10 @@ class Menu extends CI_Controller
 					'value'			=> $this->form_validation->set_value('urut_menu', $row->urut_menu),
 					'class'			=> 'form-control',
 				);
-			    $this->data['menu_users'] = array(
-					'name'			=> 'menu_users',
+			    $this->data['menu_grup_user'] = array(
+					'name'			=> 'menu_grup_user',
 					'type'			=> 'text',
-					'value'			=> $this->form_validation->set_value('menu_users', $row->menu_users),
+					'value'			=> $this->form_validation->set_value('menu_grup_user', $row->menu_grup_user),
 					'class'			=> 'form-control select2',
 				);
 			    $this->data['is_active'] = array(
@@ -302,7 +294,7 @@ class Menu extends CI_Controller
 			'icon' 					=> $this->input->post('icon',TRUE),
 			'slug' 					=> $this->input->post('slug',TRUE),
 			'urut_menu' 					=> $this->input->post('urut_menu',TRUE),
-			'menu_users' 					=> $this->input->post('menu_users',TRUE),
+			'menu_grup_user' 					=> $this->input->post('menu_grup_user',TRUE),
 			'is_active' 					=> $this->input->post('is_active',TRUE),
 	    );
 
@@ -360,7 +352,7 @@ class Menu extends CI_Controller
 	$this->form_validation->set_rules('icon', 'icon', 'trim|required');
 	$this->form_validation->set_rules('slug', 'slug', 'trim|required');
 	$this->form_validation->set_rules('urut_menu', 'urut menu', 'trim|required');
-	$this->form_validation->set_rules('menu_users', 'menu users', 'trim|required');
+	$this->form_validation->set_rules('menu_grup_user', 'menu grup user', 'trim|required');
 	$this->form_validation->set_rules('is_active', 'is active', 'trim|required');
 
 	$this->form_validation->set_rules('id', 'id', 'trim');
