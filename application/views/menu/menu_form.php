@@ -860,13 +860,13 @@
 	    <div class="form-group">
 				<?php 
 					echo form_label('Menu Users');
-					echo form_error('menu_users');
+					echo form_error('menu_grup_user');
 					$pilih_user = array();
 					foreach ($users as $user)
 					foreach ($user->groups as $group){
 						$pilih_user[$group->id] = $group->name;
 					}
-					echo form_dropdown($menu_users,$pilih_user,$menu_users['value']);
+					echo form_dropdown($menu_grup_user,$pilih_user,$menu_grup_user['value']);
 				?>				
 			</div>
 	    <div class="form-group">
