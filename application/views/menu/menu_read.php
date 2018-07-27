@@ -29,7 +29,7 @@
 	    <tr><td>Icon</td><td><?php echo $icon; ?></td></tr>
 	    <tr><td>Slug</td><td><?php echo $slug; ?></td></tr>
 	    <tr><td>Urut Menu</td><td><?php echo $urut_menu; ?></td></tr>
-	    <tr><td>Menu Users</td><td><?php echo $menu_users; ?></td></tr>
+	    <tr><td>Menu Users</td><td><?php echo $menu_grup_user; ?></td></tr>
 	    <tr><td>Is Active</td><td><?php echo $is_active; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('menu') ?>" class="btn btn-flat btn-default">Batal</a></td></tr>
 	</table>

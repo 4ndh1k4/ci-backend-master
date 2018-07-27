@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jul 2018 pada 07.56
+-- Waktu pembuatan: 27 Jul 2018 pada 05.40
 -- Versi server: 10.1.32-MariaDB
 -- Versi PHP: 5.6.36
 
@@ -40,7 +40,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User');
+(2, 'members', 'General User'),
+(3, 'Grup1', 'grup 1');
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,7 @@ CREATE TABLE `menu` (
   `icon` varchar(50) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `urut_menu` int(11) NOT NULL,
-  `menu_users` varchar(30) NOT NULL,
+  `menu_grup_user` varchar(30) NOT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -99,11 +100,13 @@ CREATE TABLE `menu` (
 -- Dumping data untuk tabel `menu`
 --
 
-INSERT INTO `menu` (`id`, `parent_menu`, `nama_menu`, `controller_link`, `icon`, `slug`, `urut_menu`, `menu_users`, `is_active`) VALUES
+INSERT INTO `menu` (`id`, `parent_menu`, `nama_menu`, `controller_link`, `icon`, `slug`, `urut_menu`, `menu_grup_user`, `is_active`) VALUES
 (1, 0, 'menu 1', 'a', 'fa-address-book', 'a', 1, '1', 1),
 (2, 1, 'sub menu 1', 'a', 'fa-500px', 'coba', 2, '1', 1),
-(3, 0, 'menu 2', 'a', 'fa-user', 'a', 3, '1', 1),
-(4, 3, 'sub menu 2', 'a', 'fa-address-book-o', 'coba', 4, '1', 1);
+(3, 0, 'menu 2', 'a', 'fa-user', 'a', 3, '2', 1),
+(4, 3, 'sub menu 2', 'a', 'fa-address-book-o', 'coba', 4, '2', 1),
+(5, 0, 'menu 3', 'a', 'fa-user', 'a', 3, '3', 1),
+(6, 5, 'sub menu 3', 'a', 'fa-address-book-o', 'coba', 4, '3', 1);
 
 -- --------------------------------------------------------
 
@@ -136,7 +139,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$mZPaYks57MijwQIbpiXn0e5ugdDn8QTDaY0.jay3axX/dJGhcv7sG', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1532573049, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, '127.0.0.1', 'administrator', '$2y$08$mZPaYks57MijwQIbpiXn0e5ugdDn8QTDaY0.jay3axX/dJGhcv7sG', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1532655463, 1, 'Admin', 'istrator', 'ADMIN', '0');
 
 -- --------------------------------------------------------
 
@@ -155,8 +158,9 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1),
-(2, 1, 2);
+(7, 1, 1),
+(8, 1, 2),
+(9, 1, 3);
 
 --
 -- Indexes for dumped tables
@@ -209,7 +213,7 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT untuk tabel `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `identitas_web`
@@ -227,7 +231,7 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
@@ -239,7 +243,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

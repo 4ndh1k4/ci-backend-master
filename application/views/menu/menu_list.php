@@ -81,7 +81,7 @@
                         {
                             "data": "id",
                             "orderable": false
-                        },{"data": "parent_menu"},{"data": "nama_menu"},{"data": "controller_link"},{"data": "icon"},{"data": "slug"},{"data": "urut_menu"},{"data": "menu_users"},{"data": "is_active"},
+                        },{"data": "parent_menu"},{"data": "nama_menu"},{"data": "controller_link"},{"data": "icon"},{"data": "slug"},{"data": "urut_menu"},{"data": "menu_grup_user"},{"data": "is_active"},
                         {
                             "data" : "action",
                             "orderable": false,
