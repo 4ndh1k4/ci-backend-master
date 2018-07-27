@@ -156,13 +156,15 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li><?php echo anchor('dashboard','<i class="fa fa-dashboard"></i><span> Beranda</span>');?></li>		
-		<?php 	
-		$id = $user->id;
-		if(isset($id)){
-			$in_group = $this->ion_auth->in_group($id);
+		<?php 		
+		$id_user = $user->id;
+		$get_group = $this->db->get_where('users_groups', array('user_id'=> $id_user));
+		$hasil = $get_group->result();
+		foreach($hasil as $h)		
+		if(isset($h->group_id)){
+			$in_group = $this->ion_auth->in_group($h->group_id);
 			if(isset($in_group)){
-				//echo $id;
-				$get_menu = $this->db->get_where('menu',array('parent_menu' => 0, 'menu_users' => $id));
+				$get_menu = $this->db->get_where('menu',array('parent_menu' => 0, 'menu_grup_user' => $h->group_id));
 				$menu = $get_menu->result();
 				foreach($menu as $m){
 					$cekSub = $this->db->get_where('menu',array('parent_menu' => $m->id));					
