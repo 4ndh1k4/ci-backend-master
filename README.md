@@ -11,8 +11,8 @@ Ini adalah bantuan untuk membuat aplikasi berbasis web dengan framework codeigni
 ## Cara Pakai :
 * letakan di folder htdocs
 * import ci-master.sql yang ada di folder ci-master/application/sql ke dalam database
-* sistem siap digunakan
-* lakukan pengaturan di application/config jika ingin mengubah base_url()
+* rubah nama folder seperti yang anda inginkan dan jangan lupa lakukan pengaturan di application/config untuk mengubah base_url() sesuai dengan nama folder yang telah anda setting sebelumnya
+* sistem telah siap digunakan
 
 
 jika dirasa bisa membantu silahkan unduh dan kembangkan, segala masukan yang bersifat membangun silahkan kirim melalui email andhika6@gmail.com
