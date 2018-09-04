@@ -33,7 +33,7 @@ class Dashboard extends CI_Controller
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			
 			$this->data['title'] = 'Beranda';
 			$this->get_Meta();
@@ -47,7 +47,7 @@ class Dashboard extends CI_Controller
 		
 		$rows = $this->Identitas_web_model->get_all();
 		foreach ($rows as $row) {			
-			$this->data['name_web'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
+			$this->data['web_name'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
 			$this->data['meta_description']	= $this->form_validation->set_value('meta_deskripsi',$row->meta_deskripsi);
 			$this->data['meta_keywords'] 	= $this->form_validation->set_value('meta_keyword',$row->meta_keyword);
 			$this->data['copyrights'] 		= $this->form_validation->set_value('copyright',$row->copyright);

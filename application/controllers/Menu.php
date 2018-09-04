@@ -29,7 +29,7 @@ class Menu extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 						
 			$this->data['title'] = 'menu';
 			$this->get_Meta();
@@ -58,7 +58,7 @@ class Menu extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			
 			$row = $this->Menu_model->get_by_id($id);
 			if ($row) {
@@ -77,7 +77,7 @@ class Menu extends CI_Controller
 				$this->data['_view'] = 'menu/menu_read';
 				$this->_render_page('layouts/main',$this->data);
 			} else {
-				$this->session->set_flashdata('message', 'Data tidak ditemukan');
+				$this->data['message'] = 'Data tidak ditemukan';
 				redirect(site_url('menu'));
 			}
 		}
@@ -97,8 +97,13 @@ class Menu extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();			
-			
+			$this->data['usr'] = $this->ion_auth->user()->row();			
+			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['users'] = $this->ion_auth->users()->result();
+			foreach ($this->data['users'] as $k => $user)
+			{
+				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+			}
 			$this->data['get_parent'] = $this->Menu_model->get_all();
 			
 			$this->data['button'] = 'Tambah';
@@ -184,7 +189,7 @@ class Menu extends CI_Controller
 			);
 
             $this->Menu_model->insert($data);
-            $this->session->set_flashdata('message', 'Data berhasil ditambahkan');
+            $this->data['message'] = 'Data berhasil ditambahkan';
             redirect(site_url('menu'));
         }
     }
@@ -203,8 +208,13 @@ class Menu extends CI_Controller
 		}
 		else
 		{
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			$this->data['user'] = $this->ion_auth->user()->row();
-			
+			$this->data['users'] = $this->ion_auth->users()->result();
+			foreach ($this->data['users'] as $k => $user)
+			{
+				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+			}
 			
 			
 			$this->data['get_parent'] = $this->Menu_model->get_all();
@@ -274,7 +284,7 @@ class Menu extends CI_Controller
 				$this->data['_view'] = 'menu/menu_form';
 				$this->_render_page('layouts/main',$this->data);
 			} else {
-				$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+				$this->data['message'] = 'Data Tidak Ditemukan';
 				redirect(site_url('menu'));
 			}
 		}
@@ -299,7 +309,7 @@ class Menu extends CI_Controller
 	    );
 
             $this->Menu_model->update($this->input->post('id', TRUE), $data);
-            $this->session->set_flashdata('message', 'Data berhasil di ubah');
+            $this->data['message'] = 'Data berhasil di ubah';
             redirect(site_url('menu'));
         }
     }
@@ -310,10 +320,10 @@ class Menu extends CI_Controller
 
         if ($row) {
             $this->Menu_model->delete($id);
-            $this->session->set_flashdata('message', 'Hapus data berhasil');
+            $this->data['message'] = 'Hapus data berhasil';
             redirect(site_url('menu'));
         } else {
-            $this->session->set_flashdata('message', 'Data tidak ditemukan');
+            $this->data['message'] = 'Data tidak ditemukan';
             redirect(site_url('menu'));
         }
     }
@@ -322,7 +332,7 @@ class Menu extends CI_Controller
 		
 		$rows = $this->Identitas_web_model->get_all();
 		foreach ($rows as $row) {			
-			$this->data['name_web'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
+			$this->data['web_name'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
 			$this->data['meta_description']= $this->form_validation->set_value('meta_deskripsi',$row->meta_deskripsi);
 			$this->data['meta_keywords'] 	= $this->form_validation->set_value('meta_keyword',$row->meta_keyword);
 			$this->data['copyrights'] 		= $this->form_validation->set_value('copyright',$row->copyright);

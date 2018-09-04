@@ -7,7 +7,7 @@
   <meta name="keywords" content="<?php if(isset($meta_keywords)){ echo ucfirst($meta_keywords);}?>">
   <meta name="author" content="Andhika Putra Pratama">
   <link rel="icon" href="<?php if(isset($logos)){ echo base_url($logos); }?>"/>
-  <title><?php if(isset($name_web)){ echo ucfirst($name_web); }?> | <?php if(isset($title)){ echo ucfirst($title); }?></title>
+  <title><?php if(isset($web_name)){ echo ucfirst($web_name); }?> | <?php if(isset($title)){ echo ucfirst($title); }?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -56,7 +56,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><?php if(isset($name_web)){ echo $name_web;}?></span>
+      <span class="logo-lg"><?php if(isset($web_name)){ echo $web_name;}?></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -74,7 +74,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?php echo base_url('resources')?>/dist/img/user-icon.png" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $user->first_name;?></span>
+              <span class="hidden-xs"><?php echo $usr->first_name;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -82,10 +82,10 @@
                 <img src="<?php echo base_url('resources')?>/dist/img/user-icon.png" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $user->first_name; 
+                  <?php echo $usr->first_name; 
 						echo '&nbsp;';
-						echo $user->last_name;				  
-						echo '<small>' .$user->email. '</small>';
+						echo $usr->last_name;				  
+						echo '<small>' .$usr->email. '</small>';
 				  ?>
                 </p>
               </li>
@@ -123,7 +123,7 @@
           <img src="<?php echo base_url('resources')?>/dist/img/user-icon.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $user->first_name;?></p>
+          <p><?php echo $usr->first_name;?></p>
 			<?php
 				$ip = "127.0.0.1"; //IP atau website
 				$port = "80"; //Port
@@ -157,7 +157,7 @@
         <li class="header">MAIN NAVIGATION</li>
         <li><?php echo anchor('dashboard','<i class="fa fa-dashboard"></i><span> Beranda</span>');?></li>		
 		<?php 		
-		$id_user = $user->id;
+		$id_user = $usr->id;
 		$get_group = $this->db->get_where('users_groups', array('user_id'=> $id_user));
 		$hasil = $get_group->result();
 		foreach($hasil as $h)		

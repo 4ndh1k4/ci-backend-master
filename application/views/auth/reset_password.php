@@ -7,7 +7,7 @@
   <meta name="keywords" content="<?php if(isset($meta_keywords)){ echo ucfirst($meta_keywords);}?>">
   <meta name="author" content="Andhika Putra Pratama">
   <link rel="icon" href="<?php if(isset($logos)){ echo base_url($logos); }?>"/>
-  <title><?php if(isset($name_web)){ echo ucfirst($name_web); }?> | <?php if(isset($title)){ echo ucfirst($title); }?></title>
+  <title><?php if(isset($web_name)){ echo ucfirst($web_name); }?> | <?php if(isset($title)){ echo ucfirst($title); }?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -40,12 +40,12 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg"></p>
-	<?php if($this->session->flashdata('message')){ ?>  
-     <div class="alert alert-warning">  
-       <a href="#" class="close" data-dismiss="alert">&times;</a>  
-       <?php echo $this->session->flashdata('message'); ?>  
-     </div>  
-   <?php }  ?>  
+	<?php if(isset($message)){   
+		 echo '<div class="alert alert-warning">  
+		   <a href="#" class="close" data-dismiss="alert">&times;</a>  
+		   '.$message.'
+		 </div> '; 
+    }  ?> 
     
 	<?php echo form_open('auth/reset_password/' . $code);?>
 

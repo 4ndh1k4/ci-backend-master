@@ -120,7 +120,7 @@ $string .= "\n\n    public function read(\$id)
 				\$this->data['_view'] = '$c_url/$v_read';
 				\$this->_render_page('layouts/main',\$this->data);
 			} else {
-				\$this->session->set_flashdata('message', 'Data tidak ditemukan');
+				\$this->data['message'] = 'Data tidak ditemukan';
 				redirect(site_url('$c_url'));
 			}
 		}
@@ -174,7 +174,7 @@ foreach ($non_pk as $row) {
 $string .= "\n\t    );
 
             \$this->".$m."->insert(\$data);
-            \$this->session->set_flashdata('message', 'Data berhasil ditambahkan');
+            \$this->data['message'] = 'Data berhasil ditambahkan';
             redirect(site_url('$c_url'));
         }
     }
@@ -216,7 +216,7 @@ $string .= "\n\t    );
 				\$this->data['_view'] = '$c_url/$v_form';
 				\$this->_render_page('layouts/main',\$this->data);
 			} else {
-				\$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+				\$this->data['message'] = 'Data Tidak Ditemukan';
 				redirect(site_url('$c_url'));
 			}
 		}
@@ -236,7 +236,7 @@ $string .= "\n\t    );
 	$string .= "\n\t    );
 
             \$this->".$m."->update(\$this->input->post('$pk', TRUE), \$data);
-            \$this->session->set_flashdata('message', 'Data berhasil di ubah');
+            \$this->data['message'] = 'Data berhasil di ubah';
             redirect(site_url('$c_url'));
         }
     }
@@ -247,10 +247,10 @@ $string .= "\n\t    );
 
         if (\$row) {
             \$this->".$m."->delete(\$id);
-            \$this->session->set_flashdata('message', 'Hapus data berhasil');
+            \$this->data['message'] = 'Hapus data berhasil';
             redirect(site_url('$c_url'));
         } else {
-            \$this->session->set_flashdata('message', 'Data tidak ditemukan');
+            \$this->data['message'] = 'Data tidak ditemukan';
             redirect(site_url('$c_url'));
         }
     }

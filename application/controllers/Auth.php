@@ -44,6 +44,7 @@ class Auth extends CI_Controller
 
 			//list the users
 			$this->data['title'] = 'Pengguna';
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			$this->data['user'] = $this->ion_auth->user()->row();
 			$this->data['users'] = $this->ion_auth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
@@ -61,7 +62,7 @@ class Auth extends CI_Controller
 		
 		$rows = $this->Identitas_web_model->get_all();
 		foreach ($rows as $row) {			
-			$this->data['name_web'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
+			$this->data['web_name'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
 			$this->data['meta_description']	= $this->form_validation->set_value('meta_deskripsi',$row->meta_deskripsi);
 			$this->data['meta_keywords'] 	= $this->form_validation->set_value('meta_keyword',$row->meta_keyword);
 			$this->data['copyrights'] 		= $this->form_validation->set_value('copyright',$row->copyright);
@@ -152,6 +153,7 @@ class Auth extends CI_Controller
 			redirect('auth/login', 'refresh');
 		}
 
+		$this->data['usr'] = $this->ion_auth->user()->row();
 		$this->data['user'] = $this->ion_auth->user()->row();
 		$user_ = $this->data['user']->id;
 		
@@ -445,7 +447,7 @@ class Auth extends CI_Controller
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
-			$this->data['user'] = $this->ion_auth->user($id)->row();
+			$this->data['usr'] = $this->ion_auth->user($id)->row();
 
 			$this->get_Meta();
 			$this->data['_view']='auth/deactivate_user';
@@ -486,7 +488,7 @@ class Auth extends CI_Controller
 		{
 			redirect('auth', 'refresh');
 		}
-		$this->data['user'] = $this->ion_auth->user()->row();
+		$this->data['usr'] = $this->ion_auth->user()->row();
 		$tables = $this->config->item('tables', 'ion_auth');
 		$identity_column = $this->config->item('identity', 'ion_auth');
 		$this->data['identity_column'] = $identity_column;
@@ -614,6 +616,7 @@ class Auth extends CI_Controller
 	 */
 	public function edit_user($id)
 	{
+		$this->data['usr'] = $this->ion_auth->user()->row();
 		$this->data['title'] = $this->lang->line('edit_user_heading');
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
@@ -804,7 +807,7 @@ class Auth extends CI_Controller
 				'value' => $this->form_validation->set_value('description'),
 				'class' => 'form-control',
 			);
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			$this->get_Meta();
 			$this->data['_view']='auth/create_group';
 			
@@ -819,13 +822,14 @@ class Auth extends CI_Controller
 	 */
 	public function edit_group($id)
 	{
+		$this->data['usr'] = $this->ion_auth->user()->row();
 		// bail if no group id given
 		if (!$id || empty($id))
 		{
 			redirect('auth', 'refresh');
 		}
 
-		$this->data['title'] = $this->lang->line('edit_group_title');
+		$this->data['web_title'] = $this->lang->line('edit_group_title');
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
@@ -868,21 +872,17 @@ class Auth extends CI_Controller
 			'id'      => 'group_name',
 			'type'    => 'text',
 			'value'   => $this->form_validation->set_value('group_name', $group->name),
+			'class'	  => 'form-control',
 			$readonly => $readonly,
-			'class' => 'form-control',
 		);
 		$this->data['group_description'] = array(
 			'name'  => 'group_description',
 			'id'    => 'group_description',
 			'type'  => 'text',
+			'class'	  => 'form-control',
 			'value' => $this->form_validation->set_value('group_description', $group->description),
-			'class' => 'form-control',
 		);
-		
-		$this->data['user'] = $this->ion_auth->user()->row();
-		$this->get_Meta();
-		$this->data['_view']='auth/edit_group';
-		
+		$this->data['_view'] = 'auth/edit_group';
 		$this->_render_page('layouts/main', $this->data);
 	}
 

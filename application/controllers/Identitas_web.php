@@ -46,7 +46,7 @@ class Identitas_web extends CI_Controller
 		
 		$rows = $this->Identitas_web_model->get_all();
 		foreach ($rows as $row) {			
-			$this->data['name_web'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
+			$this->data['web_name'] 		= $this->form_validation->set_value('nama_web',$row->nama_web);
 			$this->data['meta_description']	= $this->form_validation->set_value('meta_deskripsi',$row->meta_deskripsi);
 			$this->data['meta_keywords'] 	= $this->form_validation->set_value('meta_keyword',$row->meta_keyword);
 			$this->data['copyrights'] 		= $this->form_validation->set_value('copyright',$row->copyright);
@@ -73,7 +73,7 @@ class Identitas_web extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			
 			$row = $this->Identitas_web_model->get_by_id($id);
 			if ($row) {
@@ -123,7 +123,7 @@ class Identitas_web extends CI_Controller
 				$this->data['_view'] = 'identitas_web/identitas_web_read';
 				$this->_render_page('layouts/main',$this->data);
 			} else {
-				$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+				$this->data['message'] = 'Data Tidak Ditemukan';
 				redirect(site_url('identitas_web'));
 			}
 		}
@@ -143,7 +143,7 @@ class Identitas_web extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			
 			$this->data['button'] = 'Tambah';
 			$this->data['action'] = site_url('identitas_web/create_action');
@@ -215,7 +215,7 @@ class Identitas_web extends CI_Controller
             if (!$is_file_error) {
                 $this->load->library('upload', $config);
 				if (!$this->upload->do_upload('logo')) {
-					$this->session->set_flashdata('message',$this->upload->display_errors());
+					$this->data['message'] =$this->upload->display_errors();
 					$is_file_error = TRUE;
 				} else {
 					$image_data 				= $this->upload->data();
@@ -226,7 +226,7 @@ class Identitas_web extends CI_Controller
                     $config['height'] 			= 100;
                     $this->load->library('image_lib', $config);
                     if (!$this->image_lib->resize()) {
-                        $this->session->set_flashdata('message',$this->image_lib->display_errors());
+                        $this->data['message'] =$this->image_lib->display_errors();
                     }					
 					$data['logo'] 				= $upload_path . $image_data['file_name'];					
                 }
@@ -248,7 +248,7 @@ class Identitas_web extends CI_Controller
 			);
 
             $this->Identitas_web_model->insert($data);
-            $this->session->set_flashdata('message', 'Data berhasil ditambahkan');
+            $this->data['message'] = 'Data berhasil ditambahkan';
             redirect(site_url('identitas_web'));
         }
     }
@@ -267,7 +267,7 @@ class Identitas_web extends CI_Controller
 		}
 		else
 		{
-			$this->data['user'] = $this->ion_auth->user()->row();
+			$this->data['usr'] = $this->ion_auth->user()->row();
 			
 			$row = $this->Identitas_web_model->get_by_id($id);
 
@@ -317,7 +317,7 @@ class Identitas_web extends CI_Controller
 				$this->data['_view'] = 'identitas_web/identitas_web_form';
 				$this->_render_page('layouts/main',$this->data);
 			} else {
-				$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+				$this->data['message'] = 'Data Tidak Ditemukan';
 				redirect(site_url('identitas_web'));
 			}
 		}
@@ -346,7 +346,7 @@ class Identitas_web extends CI_Controller
             if (!$is_file_error) {
                 $this->load->library('upload', $config);
 				if (!$this->upload->do_upload('logo')) {
-					$this->session->set_flashdata('message',$this->upload->display_errors());
+					$this->data['message'] =$this->upload->display_errors();
 					$is_file_error = TRUE;
 				} else {
 					$image_data 				= $this->upload->data();
@@ -357,7 +357,7 @@ class Identitas_web extends CI_Controller
                     $config['height'] 			= 100;
                     $this->load->library('image_lib', $config);
                     if (!$this->image_lib->resize()) {
-                        $this->session->set_flashdata('message',$this->image_lib->display_errors());
+                        $this->data['message'] =$this->image_lib->display_errors();
                     }					
 					$data['logo'] 				= $upload_path . $image_data['file_name'];					
                 }
@@ -379,7 +379,7 @@ class Identitas_web extends CI_Controller
 			'copyright' 		=> $this->input->post('copyright',TRUE),
 			);		
 			$this->Identitas_web_model->update($this->input->post('id_identitas', TRUE), $data);	
-			$this->session->set_flashdata('message', 'Data berhasil dirubah');		
+			$this->data['message'] = 'Data berhasil dirubah';		
 			redirect(site_url('identitas_web'));
         }
     }
@@ -390,10 +390,10 @@ class Identitas_web extends CI_Controller
 
         if ($row) {
             $this->Identitas_web_model->delete($id);
-            $this->session->set_flashdata('message', 'Hapus data berhasil');
+            $this->data['message'] = 'Hapus data berhasil';
             redirect(site_url('identitas_web'));
         } else {
-            $this->session->set_flashdata('message', 'Data tidak ditemukan');
+            $this->data['message'] = 'Data tidak ditemukan';
             redirect(site_url('identitas_web'));
         }
     }

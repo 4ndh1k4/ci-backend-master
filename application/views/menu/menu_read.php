@@ -10,12 +10,12 @@
     </section>
     <!-- Main content -->
     <section class="content">
-	<?php if($this->session->userdata('message')){ ?>  
-		 <div class="alert alert-warning">  
+	<?php if(isset($message)){   
+		 echo '<div class="alert alert-warning">  
 		   <a href="#" class="close" data-dismiss="alert">&times;</a>  
-		   <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
-		 </div>  
-   <?php }  ?>
+		   '.$message.'
+		 </div>';
+    }  ?>
    
       <!-- Default box -->
       <div class="box">
